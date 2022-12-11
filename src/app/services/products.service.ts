@@ -22,9 +22,11 @@ export class ProductsService {
         fromObject: {limit: 5}
       })
     }).pipe(
-      delay(200),
       retry(2),
-      tap(products => this.products = products),
+      tap(products => {
+        console.log(products)
+        this.products = products
+      }),
       catchError(this.errorHandler.bind(this))
     )
   }
